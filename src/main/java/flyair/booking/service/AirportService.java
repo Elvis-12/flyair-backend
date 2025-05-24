@@ -29,6 +29,11 @@ public class AirportService {
      * Create a new airport
      */
     public AirportResponse createAirport(CreateAirportRequest request) {
+        // Validate airport code
+        if (request.getAirportCode() == null || request.getAirportCode().trim().isEmpty()) {
+            throw new BadRequestException("Airport code is required");
+        }
+
         // Check if airport code already exists
         if (airportRepository.existsByAirportCode(request.getAirportCode())) {
             throw new BadRequestException("Airport code already exists: " + request.getAirportCode());

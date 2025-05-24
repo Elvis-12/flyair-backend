@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateAirportRequest {
     
-    private String code;
-    private String name;
+    private String airportCode;
+    private String airportName;
     private String city;
     private String country;
     private String countryCode;
@@ -21,10 +21,10 @@ public class CreateAirportRequest {
     private Double longitude;
 
     public String getAirportCode() {
-        return code;
+        return airportCode;
     }
 
     public String getAirportName() {
-        return name;
+        return airportName;
     }
 }
