@@ -65,7 +65,7 @@ public class EmailService {
      */
     public void sendPasswordResetEmail(String to, String resetToken, String userName) {
         String subject = "FlyAir - Password Reset Request";
-        String resetUrl = "http://localhost:3000/reset-password?token=" + resetToken;
+        String resetUrl = "http://localhost:5173/reset-password?token=" + resetToken;
         
         String htmlContent = buildPasswordResetEmailContent(userName, resetUrl);
         sendHtmlEmail(to, subject, htmlContent);
