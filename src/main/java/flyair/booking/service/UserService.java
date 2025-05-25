@@ -83,23 +83,38 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         
-        // Check if email is being changed and if it's already taken
-        if (!user.getEmail().equals(request.getEmail()) && 
-            userRepository.existsByEmail(request.getEmail())) {
-            throw new BadRequestException("Email is already taken");
+        // Only update fields that are provided in the request
+        if (request.getEmail() != null) {
+            if (!user.getEmail().equals(request.getEmail()) && 
+                userRepository.existsByEmail(request.getEmail())) {
+                throw new BadRequestException("Email is already taken");
+            }
+            user.setEmail(request.getEmail());
         }
         
-        // Check if username is being changed and if it's already taken
-        if (!user.getUsername().equals(request.getUsername()) && 
-            userRepository.existsByUsername(request.getUsername())) {
-            throw new BadRequestException("Username is already taken");
+        if (request.getUsername() != null) {
+            if (!user.getUsername().equals(request.getUsername()) && 
+                userRepository.existsByUsername(request.getUsername())) {
+                throw new BadRequestException("Username is already taken");
+            }
+            user.setUsername(request.getUsername());
         }
         
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setUsername(request.getUsername());
-        user.setPhoneNumber(request.getPhoneNumber());
+        if (request.getFirstName() != null) {
+            user.setFirstName(request.getFirstName());
+        }
+        
+        if (request.getLastName() != null) {
+            user.setLastName(request.getLastName());
+        }
+        
+        if (request.getPhoneNumber() != null) {
+            user.setPhoneNumber(request.getPhoneNumber());
+        }
+        
+        if (request.getRole() != null) {
+            user.setRole(request.getRole());
+        }
         
         User savedUser = userRepository.save(user);
         log.info("User updated successfully: {}", savedUser.getUsername());

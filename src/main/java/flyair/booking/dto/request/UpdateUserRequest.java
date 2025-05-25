@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import flyair.booking.model.User;
 
 @Data
 @Builder
@@ -16,4 +17,5 @@ public class UpdateUserRequest {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private User.Role role;
 }
